@@ -3,11 +3,18 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 import { Appbar, Button, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { userLogin } from '../../services/auth';
 
 
 export const Login = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleLogin() {
+        userLogin(email, password);
+    }
+
 
     return (
         <View style={styles.container}>
@@ -34,6 +41,8 @@ export const Login = () => {
                 <TextInput
                     placeholder="Contraseña"
                     style={styles.input}
+                    value={password}
+                    onChangeText={value => setPassword(value)}
                     secureTextEntry={!passwordVisible}
                 />
                 <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
@@ -53,6 +62,7 @@ export const Login = () => {
                 buttonColor="#FF7F3E"
                 textColor="white"
                 style={styles.loginButton}
+                onPress={handleLogin}
             >
                 Iniciar sesión
             </Button>
