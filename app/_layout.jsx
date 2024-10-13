@@ -1,28 +1,27 @@
-import { useEffect } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { router, Slot } from "expo-router";
-import { onAuthStateChanged } from "firebase/auth";
-import { AUTH } from "../firebaseConfig";
-
+import { useEffect } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router, Slot } from 'expo-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { AUTH } from '../firebaseConfig';
+import { ROUTES } from '../util/types';
 
 export default function AppLayout() {
-
     useEffect(() => {
         onAuthStateChanged(AUTH, (user) => {
             //* Si el usuario esta autenticado lo manda para la pantalla principal de home
             if (user) {
-                router.replace("/home")
+                router.replace(ROUTES.HOME);
             }
             //* Si el usuario NO esta autenticado lo manda para la pantalla de bienvenida
             else {
-                router.replace("/")
+                router.replace('/');
             }
-        })
-    }, [])
+        });
+    }, []);
 
     return (
         <SafeAreaView>
             <Slot />
         </SafeAreaView>
-    )
+    );
 }

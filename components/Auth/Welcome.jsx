@@ -25,10 +25,7 @@ export function Welcome() {
 
     return (
         <View style={style.all}>
-            <Text
-                variant="displayMedium"
-                style={[style.text, { fontWeight: 'bold' }]}
-            >
+            <Text variant="displayMedium" style={[style.text, { fontWeight: 'bold' }]}>
                 Fitness Tracker
             </Text>
             <Text variant="headlineSmall" style={style.text}>
@@ -42,11 +39,7 @@ export function Welcome() {
             </View>
             <View style={{ alignItems: 'center', marginTop: 60 }}>
                 <Link href="/auth/register" asChild>
-                    <Button
-                        mode="text"
-                        textColor="#FF7F3E"
-                        labelStyle={{ fontSize: 22, padding: 20 }}
-                    >
+                    <Button mode="text" textColor="#FF7F3E" labelStyle={{ fontSize: 22, padding: 20 }}>
                         Registrarse
                     </Button>
                 </Link>
@@ -68,12 +61,12 @@ export function Welcome() {
             </View>
         </View>
     );
-};
+}
 
 const style = StyleSheet.create({
     all: {
         paddingTop: 50,
-        paddingHorizontal: 25
+        paddingHorizontal: 25,
     },
     text: {
         fontFamily: 'Roboto_400Regular',
