@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { AUTH, DB } from '../firebaseConfig';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 
 export const userLogin = async (email, password) => {
     try {
@@ -12,6 +12,17 @@ export const userLogin = async (email, password) => {
     } catch (error) {
         return Promise.reject({ error: true, message: "Correo o contraseña incorrectos. Inténtalo de nuevo." });
     }
+};
+
+export const editProfile = async (altura, edad, peso, genero) => {
+    const userId = AUTH.currentUser.uid;
+    const docRef = doc(DB, 'Usuaros', userId);
+    await updateDoc(docRef, {
+        edad,
+        peso,
+        genero,
+        altura,
+    })
 };
 
 export const userRegister = async (email, password, name) => {

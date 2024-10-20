@@ -4,13 +4,15 @@ import { ActivityIndicator, Button, Text } from 'react-native-paper';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { DataField } from '../../components/UI/Profile/DataField';
 import { Topbar } from '../../components/UI/Profile/Topbar';
+import { router } from 'expo-router';
+import { ROUTES } from '../../util/types';
 
 const profileIcon = require('../../assets/navbarIcons/profileicon.png');
 
 export default function HomeScreen() {
     const [user, isLoading, error] = useCurrentUser();
     const handleEdit = () => {
-        //TODO write the edit code
+        router.replace(ROUTES.EDIT);
     };
 
     if (isLoading) {
@@ -43,7 +45,7 @@ export default function HomeScreen() {
 
             <View className="items-center mt-10">
                 <DataField title="Genero" data={user.genero ?? 'Sin asignar'} />
-                <DataField title="Edad" data={user.age ?? 'Sin asignar'} />
+                <DataField title="Edad" data={user.edad ?? 'Sin asignar'} />
                 <DataField title="Estatura" data={user.altura ? `${user.altura} cm` : 'Sin asignar'} />
                 <DataField title="Peso" data={user.peso ? `${user.peso} kg` : 'Sin asignar'} />
                 <Button mode="contained" buttonColor="#FF7F3E" style={styles.editButton} onPress={handleEdit}>
