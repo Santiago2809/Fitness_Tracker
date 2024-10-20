@@ -21,6 +21,8 @@ export function useCurrentUser() {
                         name: userData.nombre,
                         altura: userData.altura,
                         peso: userData.peso,
+                        genero: userData.genero,
+                        edad: userData.edad,
                     });
                 }
             } catch (err) {
