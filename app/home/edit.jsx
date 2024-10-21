@@ -102,7 +102,7 @@ export default function EditProfile() {
                 )}
                 <Button mode="contained" buttonColor="#FF7F3E" style={styles.editButton} disabled={editLoading} onPress={handleEdit}>
                     <Text variant="labelLarge" className="text-white">
-                        Editar
+                        Actualizar
                     </Text>
                 </Button>
                 <Button mode="outlined" buttonColor="transparent" style={styles.editButton} onPress={handleGoBack}>
