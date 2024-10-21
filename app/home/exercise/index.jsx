@@ -1,4 +1,3 @@
-// import { router } from "expo-router";
 import { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Dialog, Button, ActivityIndicator, TextInput } from 'react-native-paper';
@@ -105,7 +104,7 @@ export default function ExerciseScreen() {
                 style={{ maxHeight: 500 }}
             />
 
-            <Dialog visible={visible} onDismiss={hideDialog}>
+            <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white' }}>
                 <Dialog.Title>Nuevo Ejercicio</Dialog.Title>
                 <Dialog.Content>
                     <TextInput mode="outlined" label="Nombre del ejercicio" value={newExercise} onChangeText={setNewExercise} placeholder="Ej: Squat" />
@@ -116,8 +115,10 @@ export default function ExerciseScreen() {
                     ) : null}
                 </Dialog.Content>
                 <Dialog.Actions>
-                    <Button onPress={hideDialog}>Cancelar</Button>
-                    <Button onPress={handleAddExercise} disabled={isLoading}>
+                    <Button textColor="#ff6a1e" onPress={hideDialog}>
+                        Cancelar
+                    </Button>
+                    <Button textColor="#ff6a1e" onPress={handleAddExercise} disabled={isLoading}>
                         {isLoading ? 'Loading' : 'Agregar'}
                     </Button>
                 </Dialog.Actions>
