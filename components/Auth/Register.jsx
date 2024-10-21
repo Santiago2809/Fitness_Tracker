@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Keyboard, KeyboardAvoidingView, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Keyboard, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { Appbar, Button, RadioButton, Text } from 'react-native-paper';
 import { userRegister } from '../../services/auth';
@@ -14,6 +14,7 @@ export function Register() {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
 
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState({});
 
     function handleRegister() {
@@ -42,7 +43,16 @@ export function Register() {
         } else {
             setError((prev) => ({ ...prev, weight: null }));
         }
-        // userRegister({ email, password, name, gender, height, weight });
+
+        setIsLoading(true);
+        userRegister({ email, password, name, gender, height, weight })
+            .then()
+            .catch((err) => {
+                setError((prev) => ({ ...prev, email: err.message }));
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }
 
     return (
@@ -82,6 +92,7 @@ export function Register() {
                     <Button
                         onPress={handleRegister}
                         mode="elevated"
+                        disabled={isLoading}
                         buttonColor="#FF7F3E"
                         textColor="white"
                         style={{
@@ -97,7 +108,7 @@ export function Register() {
                             paddingVertical: 5,
                         }}
                     >
-                        Crear cuenta
+                        {isLoading ? 'Cargando' : 'Crear cuenta'}
                     </Button>
                 </ScrollView>
             </View>
