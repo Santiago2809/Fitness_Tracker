@@ -25,17 +25,30 @@ export const editProfile = async (altura, edad, peso, genero) => {
     })
 };
 
-export const userRegister = async (email, password, name) => {
+export const userRegister = async ({ email, password, name, gender, height, weight }) => {
     try {
+        if (name.trim() === "") {
+            const error = new Error();
+            error.message = "Name must not be empty";
+            error.code = "EMPTY_NAME";
+        };
         const response = await createUserWithEmailAndPassword(AUTH, email, password);
         const { user } = response;
         await setDoc(doc(DB, 'Usuaros', user.uid), {
             nombre: name,
-            altura: 169,
-            peso: 69,
+            genero: gender ? gender : null,
+            altura: height ? height : null,
+            peso: weight ? weight : null,
         });
         console.log('Guardado con exito');
     } catch (error) {
-        console.log(error);
+        //* Ya existe un usuario con ese correo
+        if (error.code === 'auth/email-already-in-use') {
+            return Promise.reject({ error: true, message: "El correo ya esta en uso" })
+        }
+        //* El campo name venia vacio 
+        if (error.code === "EMPTY_NAME") {
+            return Promise.reject({ error: true, message: error.message })
+        }
     }
 };
