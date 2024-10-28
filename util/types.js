@@ -4,4 +4,5 @@ export const ROUTES = {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
     EXERCISE: '/home/exercise',
+    ROUTINES: '/home/routines',
 };
