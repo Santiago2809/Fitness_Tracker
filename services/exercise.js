@@ -6,7 +6,7 @@ export const getExercises = async () => {
         const querySnapshot = await getDocs(collection(DB, 'Ejercicio'));
         const exercises = [];
         querySnapshot.forEach((doc) => exercises.push({ ...doc.data(), ejercicioId: doc.id }));
-        console.log(exercises);
+        // console.log(exercises);
         return exercises;
     } catch (err) {
         console.log(err);
