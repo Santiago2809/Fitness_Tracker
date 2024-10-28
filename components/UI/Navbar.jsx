@@ -20,7 +20,7 @@ export const NavBar = () => {
                 unfocusedIcon: historialIcono,
             },
             {
-                key: 'rutinas',
+                key: 'ROUTINES',
                 title: 'Rutinas',
                 focusedIcon: rutinasIcono,
                 unfocusedIcon: rutinasIcono,
