@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Dialog, Button, ActivityIndicator, TextInput } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { addExercise, getExercises, deleteExercise } from '../../../services/exercise';
+import { addExercise, getExercises, deleteExercise, getUserExercises } from '../../../services/exercise';
 
 export default function ExerciseScreen() {
     const [exercises, setExercises] = useState([]);
@@ -39,7 +39,8 @@ export default function ExerciseScreen() {
 
     const loadExercises = async () => {
         const exercisesFromDb = await getExercises();
-        setExercises(exercisesFromDb);
+        const userExercises = await getUserExercises();
+        setExercises([...exercisesFromDb, ...userExercises]);
     };
 
     async function handleAddExercise() {
