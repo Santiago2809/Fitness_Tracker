@@ -1,17 +1,31 @@
 import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
-import { DB } from '../firebaseConfig';
+import { AUTH, DB } from '../firebaseConfig';
 
 export const getExercises = async () => {
     try {
         const querySnapshot = await getDocs(collection(DB, 'Ejercicio'));
         const exercises = [];
-        querySnapshot.forEach((doc) => exercises.push({ ...doc.data(), ejercicioId: doc.id }));
+        querySnapshot.forEach((doc) => exercises.push({ ...doc.data(), id: doc.id }));
         // console.log(exercises);
         return exercises;
     } catch (err) {
         console.log(err);
     }
 };
+
+export const getUserExercises = async () => {
+    try {
+        const userId = AUTH.currentUser.uid
+        const querySnapshot = await getDocs(collection(DB, 'Usuaros', userId, "ejercicios"));
+        const userExercises = [];
+        querySnapshot.forEach(doc => userExercises.push({ id: doc.id, ...doc.data() }))
+        // console.log(userExercises);
+        return userExercises;
+
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 export const addExercise = async (name) => {
     try {
