@@ -1,6 +1,6 @@
 
 import { router } from 'expo-router';
-import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, FlatList, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import { ActivityIndicator, Divider, IconButton, Menu, PaperProvider, Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ROUTES } from '../../../util/types';
@@ -31,7 +31,6 @@ export default function RoutinesScreen() {
     return (
 
         <PaperProvider>
-
             <View style={{ padding: 20, backgroundColor: "white", paddingBottom: 40 }}>
                 <View style={styles.TitlesContainer}>
                     <Text style={{ fontSize: 24, marginRight: 20 }}>Mis rutinas</Text>
@@ -109,26 +108,34 @@ export default function RoutinesScreen() {
 function ListItem({ routine, handleDeleteRoutine }) {
     const [menuVisible, setMenuVisible] = useState(false);
 
+    function handleNavigateToRoutine() {
+        router.navigate(`${ROUTES.ROUTINES}/${routine.id}${handleDeleteRoutine ? "?user=true" : ""}`)
+    }
+
     return (
         <View style={styles.rutineItem}>
             <Text >{routine.name}</Text>
-            {/* <TouchableOpacity onPress={() => setMenuVisible(true)}>
-                <MaterialCommunityIcons name="dots-vertical" size={24} color="black" />
-            </TouchableOpacity> */}
-            <Menu
-                visible={menuVisible}
-                anchor={handleDeleteRoutine ? (<IconButton style={{ marginBottom: -10 }} onPress={() => setMenuVisible(true)} icon="dots-vertical" size={20} />) : null}
-                onDismiss={() => setMenuVisible(false)}
-            >
-                <Menu.Item
-                    leadingIcon="delete"
-                    title="Eliminar rutina"
-                    onPress={() => {
-                        handleDeleteRoutine(routine.id)
-                        setMenuVisible(false)
-                    }}
-                />
-            </Menu>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity onPress={handleNavigateToRoutine} style={{ marginTop: handleDeleteRoutine && 15 }}>
+                    <MaterialCommunityIcons name="arrow-right" size={24} color="black" />
+                </TouchableOpacity>
+                {handleDeleteRoutine && (
+                    <Menu
+                        visible={menuVisible}
+                        anchor={handleDeleteRoutine ? (<IconButton style={{ marginBottom: -10 }} onPress={() => setMenuVisible(true)} icon="dots-vertical" size={20} />) : null}
+                        onDismiss={() => setMenuVisible(false)}
+                    >
+                        <Menu.Item
+                            leadingIcon="delete"
+                            title="Eliminar rutina"
+                            onPress={() => {
+                                handleDeleteRoutine(routine.id)
+                                setMenuVisible(false)
+                            }}
+                        />
+                    </Menu>
+                )}
+            </View>
         </View>
     )
 }
