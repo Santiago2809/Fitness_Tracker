@@ -7,37 +7,11 @@ import { ROUTES } from '../../../util/types';
 import { useUserRoutines } from '../../../hooks/useUserRoutines';
 
 export default function MyRoutinesScreen() {
-    // const routines = [
-    //     { id: '1', valor: 'Rutina buena' },
-    //     { id: '2', valor: 'Rutina mala' },
-    //     { id: '3', valor: 'Rutina curiosa' },
-
-    // ];
 
     const [error, userRoutines, userRoutinesLoading] = useUserRoutines();
 
-
     if (error) {
-        return (
-            <View style={{ padding: 20, backgroundColor: "white", height: "100%" }}>
-                <View style={styles.TitlesContainer}>
-                    <TouchableOpacity style={{ marginTop: 5, marginRight: 10 }} onPress={() => router.back()}>
-                        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 24, marginRight: 20 }}>Mis rutinas</Text>
-                    <TouchableOpacity style={{ marginTop: 5 }} onPress={() => router.navigate(ROUTES.ADDROUTINE)}>
-                        <MaterialCommunityIcons name="plus-circle-outline" size={24} color="black" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ marginLeft: 125, marginTop: 5 }}>
-                        <MaterialCommunityIcons name="filter-outline" size={24} color="black" />
-                    </TouchableOpacity>
-                </View>
-                <View style={{ backgroundColor: "white", height: "100%", paddingHorizontal: 10 }}>
-                    <Text style={{ textAlign: 'center', marginTop: 15 }} variant='headlineMedium'>{error?.title ?? "Algo ha salido mal."}</Text>
-                    <Text style={{ textAlign: 'center', marginTop: 15 }} variant='titleLarge'>{error?.message ?? "Intentalo mas tarde."}</Text>
-                </View>
-            </View>
-        )
+        return <ErrorComponent error={error} />
     }
 
     return (
@@ -70,12 +44,7 @@ export default function MyRoutinesScreen() {
                                 data={userRoutines}
                                 keyExtractor={item => item.id}
                                 renderItem={({ item }) => (
-                                    <View style={styles.rutineItem}>
-                                        <Text >{item.name}</Text>
-                                        <TouchableOpacity>
-                                            <MaterialCommunityIcons name="dots-vertical" size={24} color="black" />
-                                        </TouchableOpacity>
-                                    </View>
+                                    <RenderItem routine={item} />
                                 )}
                                 ItemSeparatorComponent={() => (
                                     <View style={styles.separator} />
@@ -88,6 +57,47 @@ export default function MyRoutinesScreen() {
 
         </View>
     );
+}
+
+function RenderItem({ routine }) {
+
+    // console.log(routine)
+    function handleNavigateToRoutine() {
+        router.navigate(`${ROUTES.ROUTINES}/${routine.id}?user=true`)
+    }
+
+    return <View style={styles.rutineItem}>
+        <Text >{routine.name}</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", columnGap: 15 }}>
+            <TouchableOpacity onPress={handleNavigateToRoutine}>
+                <MaterialCommunityIcons name="arrow-right" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <MaterialCommunityIcons name="dots-vertical" size={24} color="black" />
+            </TouchableOpacity>
+        </View>
+    </View>
+}
+
+function ErrorComponent({ error }) {
+    return <View style={{ padding: 20, backgroundColor: "white", height: "100%" }}>
+        <View style={styles.TitlesContainer}>
+            <TouchableOpacity style={{ marginTop: 5, marginRight: 10 }} onPress={() => router.back()}>
+                <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={{ fontSize: 24, marginRight: 20 }}>Mis rutinas</Text>
+            <TouchableOpacity style={{ marginTop: 5 }} onPress={() => router.navigate(ROUTES.ADDROUTINE)}>
+                <MaterialCommunityIcons name="plus-circle-outline" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ marginLeft: 125, marginTop: 5 }}>
+                <MaterialCommunityIcons name="filter-outline" size={24} color="black" />
+            </TouchableOpacity>
+        </View>
+        <View style={{ backgroundColor: "white", height: "100%", paddingHorizontal: 10 }}>
+            <Text style={{ textAlign: 'center', marginTop: 15 }} variant='headlineMedium'>{error?.title ?? "Algo ha salido mal."}</Text>
+            <Text style={{ textAlign: 'center', marginTop: 15 }} variant='titleLarge'>{error?.message ?? "Intentalo mas tarde."}</Text>
+        </View>
+    </View>
 }
 
 const styles = StyleSheet.create({
