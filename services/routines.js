@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { AUTH, DB } from '../firebaseConfig';
 
 
@@ -30,6 +30,35 @@ export const getUserRoutines = async () => {
         return userRoutines;
     } catch (err) {
 
+    }
+}
+
+export const getRoutine = async (routineId, isUser = false) => {
+
+    try {
+        if (isUser) {
+            //* Estas son las rutinas del usuario
+            const userId = AUTH.currentUser.uid;
+            const userDocRef = doc(DB, "Usuaros", userId, "rutinas", routineId);
+            const docSnap = await getDoc(userDocRef);
+            if (docSnap.exists()) {
+                return docSnap.data();
+            } else {
+                console.log("No existe la rutina del usuario");
+            }
+
+        } else {
+            // * Estas son las rutinas del sistema
+            const docRef = doc(DB, "Rutinas", routineId);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                return docSnap.data();
+            } else {
+                console.log("No existe la rutina del sistema");
+            }
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
 
