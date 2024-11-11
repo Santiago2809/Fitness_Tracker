@@ -9,6 +9,7 @@ export const ROUTES = {
 
     ROUTINES: '/home/routines',
     ADDROUTINE: '/home/routines/add',
+    EDITROUTINE: '/home/routines/edit',
     MYROUTINES: '/home/routines/personal',
     SYSTEMROUTINES: '/home/routines/system',
 };
