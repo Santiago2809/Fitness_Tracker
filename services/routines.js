@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { AUTH, DB } from '../firebaseConfig';
 
 
@@ -74,6 +74,19 @@ export const addRoutine = async (name, exercises) => {
         console.log("Rutina agregada con exito: " + docRef.id);
     } catch (err) {
         console.log(err);
+    }
+}
+
+export const editRoutine = async (id, name, exercises) => {
+    const userId = AUTH.currentUser.uid;
+    try {
+        const docRef = doc(DB, "Usuaros", userId, "rutinas", id)
+        await setDoc(docRef, {
+            name,
+            exercises
+        })
+    } catch (error) {
+        console.log(error);
     }
 }
 
