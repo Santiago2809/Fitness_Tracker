@@ -9,44 +9,6 @@ import { useExercises } from '../../../hooks/useExercises';
 import { addRoutine } from '../../../services/routines';
 import { ROUTES } from '../../../util/types';
 
-const initialState = [
-    {
-        id: 1,
-        name: "Squat",
-        sets: 2,
-        reps: 8,
-    },
-    {
-        id: 2,
-        sets: 4,
-        reps: 12,
-        name: "Bench press"
-    },
-    {
-        id: 3,
-        sets: 3,
-        reps: 10,
-        name: "Bicep curl"
-    },
-    {
-        id: 4,
-        sets: 3,
-        reps: 10,
-        name: "Bicep curl"
-    },
-    {
-        id: 5,
-        sets: 3,
-        reps: 10,
-        name: "Bicep curl"
-    },
-    {
-        id: 6,
-        sets: 3,
-        reps: 10,
-        name: "Bicep curl"
-    },
-]
 
 export default function Add() {
 
@@ -231,9 +193,6 @@ export default function Add() {
         </PaperProvider>
     )
 }
-
-
-
 
 
 function ExerciseContainer({ exercise, handleDeleteExercise }) {
