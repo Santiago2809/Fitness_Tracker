@@ -133,6 +133,14 @@ function ListItem({ routine, handleDeleteRoutine }) {
                                 setMenuVisible(false)
                             }}
                         />
+                        <Menu.Item
+                            leadingIcon="pencil"
+                            title="Editar rutina"
+                            onPress={() => {
+                                router.navigate(ROUTES.EDITROUTINE + "/" + routine.id)
+                                setMenuVisible(false)
+                            }}
+                        />
                     </Menu>
                 )}
             </View>
