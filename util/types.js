@@ -12,4 +12,8 @@ export const ROUTES = {
     EDITROUTINE: '/home/routines/edit',
     MYROUTINES: '/home/routines/personal',
     SYSTEMROUTINES: '/home/routines/system',
+
+    HISTORY: '/home/history',
+
+    GRAPHS: '/home/graphs'
 };
