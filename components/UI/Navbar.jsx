@@ -14,7 +14,7 @@ export const NavBar = () => {
         index: 2,
         routes: [
             {
-                key: 'historial',
+                key: 'HISTORY',
                 title: 'Historial',
                 focusedIcon: historialIcono,
                 unfocusedIcon: historialIcono,
@@ -38,7 +38,7 @@ export const NavBar = () => {
                 unfocusedIcon: ejerciciosIcono,
             },
             {
-                key: 'graficos',
+                key: 'GRAPHS',
                 title: 'Graficos',
                 focusedIcon: graficosIcono,
                 unfocusedIcon: graficosIcono,
