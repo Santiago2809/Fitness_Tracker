@@ -21,38 +21,40 @@ export function Register() {
         if (!name.match(/^[A-Za-z\s]{3,}$/)) {
             setError((prev) => ({ ...prev, name: 'Ingresa un nombre valido, solo letras y mayor a 2 caracteres.' }));
         } else {
-            setError((prev) => ({ ...prev, name: null }));
+            setError((prev) => { const { name, ...rest } = prev; return rest });
         }
         if (!email.match(/^\w+@[a-z]+\.[a-z]{2,}/)) {
             setError((prev) => ({ ...prev, email: 'Ingresa un email valido.' }));
         } else {
-            setError((prev) => ({ ...prev, email: null }));
+            setError((prev) => { const { email, ...rest } = prev; return rest });
         }
         if (!password.match(/^(?=.*[!@#$%^&*()_+{}\[\]:;"'|\\<>,.?/~`-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;"'|\\<>,.?/~`-]{6,}$/)) {
             setError((prev) => ({ ...prev, password: 'Ingresa una contaseña valida, minimo 6 caracteres, que incluya letras numeros y un caracter especial.' }));
         } else {
-            setError((prev) => ({ ...prev, password: null }));
+            setError((prev) => { const { password, ...rest } = prev; return rest });
         }
         if (!height.match(/^\d{2,3}$/)) {
             setError((prev) => ({ ...prev, height: 'Ingresa una altura valida.' }));
         } else {
-            setError((prev) => ({ ...prev, height: null }));
+            setError((prev) => { const { height, ...rest } = prev; return rest });
         }
         if (!weight.match(/^\d{2,3}$/)) {
             setError((prev) => ({ ...prev, weight: 'Ingresa un peso valido.' }));
         } else {
-            setError((prev) => ({ ...prev, weight: null }));
+            setError((prev) => { const { weight, ...rest } = prev; return rest });
         }
 
-        setIsLoading(true);
-        userRegister({ email, password, name, gender, height, weight })
-            .then()
-            .catch((err) => {
-                setError((prev) => ({ ...prev, email: err.message }));
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        if (JSON.stringify({}) === JSON.stringify(error)) {
+            setIsLoading(true);
+            userRegister({ email, password, name, gender, height, weight })
+                .then()
+                .catch((err) => {
+                    setError((prev) => ({ ...prev, email: err.message }));
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        };
     }
 
     return (
