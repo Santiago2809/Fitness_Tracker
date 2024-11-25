@@ -67,6 +67,7 @@ const style = StyleSheet.create({
     all: {
         paddingTop: 50,
         paddingHorizontal: 25,
+        backgroundColor: "white"
     },
     text: {
         fontFamily: 'Roboto_400Regular',
