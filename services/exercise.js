@@ -28,8 +28,11 @@ export const getUserExercises = async () => {
 }
 
 export const addExercise = async (name) => {
+
+    const userId = AUTH.currentUser.uid;
     try {
-        const docId = await addDoc(collection(DB, 'Ejercicio'), {
+        const exercisesRef = collection(DB, "Usuaros", userId, "ejercicios");
+        const docId = await addDoc(exercisesRef, {
             name: name,
         });
         console.log(docId);
@@ -41,8 +44,10 @@ export const addExercise = async (name) => {
 };
 
 export const deleteExercise = async (exerciseId) => {
+    const user = AUTH.currentUser.uid;
+
     try {
-        await deleteDoc(doc(DB, 'Ejercicio', exerciseId));
+        await deleteDoc(doc(DB, 'Usuaros', user, "ejercicios", exerciseId));
         console.log('Ejercicio eliminado:', exerciseId);
         return true;
     } catch (err) {

@@ -10,10 +10,10 @@ export function useExercises() {
     useEffect(() => {
         (async function () {
             try {
-                const sysExercises = await getExercises();
+                // const sysExercises = await getExercises();
                 const userExercises = await getUserExercises();
                 if (exercises.length > 0 || userExercises.length > 0) {
-                    setExercises([...sysExercises, ...userExercises]);
+                    setExercises([...userExercises]);
                 }
 
             } catch (err) {

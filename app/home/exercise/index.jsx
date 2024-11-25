@@ -21,7 +21,7 @@ export default function ExerciseScreen() {
     };
 
     const showConfirmDialog = (exercise) => {
-        setExerciseToDelete(exercise);
+        setExerciseToDelete(exercise.id);
         setConfirmVisible(true);
     };
     const hideConfirmDialog = () => {
@@ -38,9 +38,9 @@ export default function ExerciseScreen() {
     }, []);
 
     const loadExercises = async () => {
-        const exercisesFromDb = await getExercises();
+        // const exercisesFromDb = await getExercises();
         const userExercises = await getUserExercises();
-        setExercises([...exercisesFromDb, ...userExercises]);
+        setExercises([...userExercises]);
     };
 
     async function handleAddExercise() {
@@ -65,9 +65,9 @@ export default function ExerciseScreen() {
 
     async function handleDeleteExercise() {
         if (exerciseToDelete) {
-            const isDeleted = await deleteExercise(exerciseToDelete.ejercicioId);
+            const isDeleted = await deleteExercise(exerciseToDelete);
             if (isDeleted) {
-                const updatedExercises = exercises.filter((ex) => ex.ejercicioId !== exerciseToDelete.ejercicioId);
+                const updatedExercises = exercises.filter((ex) => ex.ejercicioId !== exerciseToDelete);
                 setExercises(updatedExercises);
             }
             hideConfirmDialog();
