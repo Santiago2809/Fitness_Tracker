@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { AUTH, DB } from '../firebaseConfig';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 
 export const userLogin = async (email, password) => {
     try {
@@ -40,6 +40,18 @@ export const userRegister = async ({ email, password, name, gender, height, weig
             altura: height ? height : null,
             peso: weight ? weight : null,
         });
+        const userExercisesCollectionRef = collection(doc(DB, "Usuaros", user.uid), "ejercicios");
+        const defaultExercises = [
+            { name: "Bench" },
+            { name: "Squat" },
+            { name: "Press Militar" },
+            { name: "Bicep Curl" },
+            { name: "Pull ups" },
+            { name: "Extension de tricep" },
+        ]
+        for (const exercise of defaultExercises) {
+            await addDoc(userExercisesCollectionRef, exercise);
+        }
         console.log('Guardado con exito');
     } catch (error) {
         //* Ya existe un usuario con ese correo
